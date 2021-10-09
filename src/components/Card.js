@@ -2,11 +2,16 @@ import React from "react";
 
 const Card = props => {
   return (
-    <div className="card col-3 m-2 ">
-      <img src={props.data.image} alt="" className="card-img-top" />
+    <div className="">
+      <img
+        src={props.data.image}
+        alt=""
+        className="card-img-top"
+        style={{ width: "300px", margin: "0px auto" }}
+      />
       <div className="card-body">
-        <h4>{props.data.title}</h4>
-        {props.showRentals ? <p>{props.data.rentalsNumber}</p> : null}
+        <h4 className="card-title">{props.data.title}</h4>
+        <p className="card-text">{props.data.description}</p>
       </div>
     </div>
   );
