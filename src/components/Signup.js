@@ -4,8 +4,10 @@ import { Link, Redirect } from "react-router-dom";
 import { validateEmail } from "./utils";
 
 const Login = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -15,6 +17,14 @@ const Login = () => {
 
   const onPasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const onConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const onNameChange = (e) => {
+    setName(e.target.value);
   };
 
   const signup = async (e) => {
@@ -54,6 +64,21 @@ const Login = () => {
       {authenticated ? <Redirect to="dashboard" /> : null}
       <form action="" onSubmit={signup}>
         <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            value={name}
+            onChange={onNameChange}
+          />
+          <div id="emailHelp" className="form-text">
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+        <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
           </label>
@@ -79,6 +104,18 @@ const Login = () => {
             id="exampleInputPassword1"
             value={password}
             onChange={onPasswordChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            value={confirmPassword}
+            onChange={onConfirmPasswordChange}
           />
         </div>
         <div className="mb-3">
