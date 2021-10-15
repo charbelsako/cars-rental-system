@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
+import AuthContext from "../context/auth";
 import { validateEmail } from "./utils";
 
 const Login = () => {
@@ -9,7 +10,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [authenticated, setAuthenticated] = useState(false);
+
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,8 +38,13 @@ const Login = () => {
       return false;
     }
 
-    if (email === "" || password === "") {
-      setError("Please fill email and password");
+    if (email === "" || password === "" || name === "") {
+      setError("Please fill all fields");
+      return false;
+    }
+
+    if (password !== confirmPassword) {
+      setError("passwords don't match");
       return false;
     }
 
