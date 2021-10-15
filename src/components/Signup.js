@@ -30,9 +30,10 @@ const Login = () => {
   const signup = async (e) => {
     e.preventDefault();
 
-    const match = validateEmail(e.target.value);
+    const match = validateEmail(email);
     if (!match) {
       setError("Please enter a valid email");
+      return false;
     }
 
     if (email === "" || password === "") {
@@ -119,8 +120,8 @@ const Login = () => {
           />
         </div>
         <div className="mb-3">
-          Don't have an account?
-          <Link to="signup"> Signup</Link>
+          Already have an account?
+          <Link to="login">Login</Link>
         </div>
         <div className="mb-3">
           <p className="alert-danger">{error}</p>

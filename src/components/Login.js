@@ -1,12 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
+import AuthContext from "../context/auth";
+import { validateEmail } from "./utils";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [authenticated, setAuthenticated] = useState(false);
+
+  const { setAuthenticated, authenticated } = useContext(AuthContext);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -19,9 +22,7 @@ const Login = (props) => {
   const login = async (e) => {
     e.preventDefault();
 
-    const reg = /[a-z._]{1}[a-z0-9]*@[a-z0-9].[a-z.]/gi;
-    if (!email.match(reg)) {
-      console.log("match");
+    if (!validateEmail(email)) {
       setError("Please enter a valid email");
       return false;
     }
@@ -39,6 +40,7 @@ const Login = (props) => {
       console.log(loginResult);
       setError("");
       // redirect to landing page
+      console.log(setAuthenticated);
       setAuthenticated(true);
     } catch (e) {
       console.log(e.message);

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import CardView from "./components/CardView";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import AuthContext from "./context/auth";
 
 function App() {
   const cars = [
@@ -64,24 +65,33 @@ function App() {
     },
   ];
 
+  const [authenticated, setAuthenticated] = useState(false);
+
   return (
     <div className="App text-center">
-      <Header />
-      <div className="container">
-        <Router>
-          <Switch>
-            <Route path="/dashboard">
-              <CardView cars={cars} />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
+      <Router>
+        <AuthContext.Provider
+          value={{
+            setAuthenticated: setAuthenticated,
+            authenticated: authenticated,
+          }}
+        >
+          <Header />
+          <div className="container">
+            <Switch>
+              <Route path="/dashboard">
+                <CardView cars={cars} />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
+            </Switch>
+          </div>
+        </AuthContext.Provider>
+      </Router>
     </div>
   );
 }

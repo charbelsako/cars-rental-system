@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import image from "../assets/bootstrap.png";
+import { Link } from "react-router-dom";
+import AuthContext from "../context/auth";
 
 const Header = () => {
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
+
+  const logout = () => setAuthenticated(false);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#!">
-        Navbar
+      <a className="navbar-brand" href="/dashboard">
+        <img
+          src={image}
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+          alt=""
+        />
       </a>
       <button
         className="navbar-toggler"
@@ -61,20 +74,16 @@ const Header = () => {
             </a>
           </li>
         </ul>
-        <form className="form-inline my-2 my-lg-0">
-          <input
-            className="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button
-            className="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Search
+        {/* Add the login button and logout */}
+        {authenticated ? (
+          <button onClick={logout} className="btn btn-danger">
+            Logout
           </button>
-        </form>
+        ) : (
+          <Link to="login" className="btn btn-primary">
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );
