@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "./Card";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
-const CardView = props => {
+const CardView = (props) => {
   return (
     <Carousel>
-      {props.cars.map(car => (
+      {props.cars.map((car) => (
         <Card data={car} />
       ))}
     </Carousel>
