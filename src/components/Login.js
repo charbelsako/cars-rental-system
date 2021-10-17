@@ -14,6 +14,7 @@ const Login = (props) => {
 
   const login = async (email, password) => {
     if (!validateEmail(email)) {
+      // can be done through formik
       setError("Please enter a valid email");
       return false;
     }
