@@ -11,7 +11,11 @@ const Login = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { authenticated, setAuthenticated } = useContext(AuthContext);
+  const {
+    authenticated,
+    setAuthenticated,
+    setName: setGlobalName,
+  } = useContext(AuthContext);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -49,13 +53,15 @@ const Login = () => {
     }
 
     try {
-      const loginResult = await axios.post("https://reqres.in/api/login", {
+      const signupResult = await axios.post("https://reqres.in/api/register", {
+        name: name,
         username: email,
         password: password,
       });
-      console.log(loginResult);
+      localStorage.setItem("token", signupResult.data.token);
+      setGlobalName(name);
       setError("");
-      // redirect to landing page
+      setName(name);
       setAuthenticated(true);
     } catch (e) {
       console.log(e.message);

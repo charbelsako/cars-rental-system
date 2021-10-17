@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../assets/Card.css";
+import { Link } from "react-router-dom";
 
 const Card = (props) => {
   const {
-    data: { image, title, description, rentalNumber },
+    data: { image, title, description, rentalNumber, id },
   } = props;
 
   const [showRentals, setShowRentals] = useState(true);
@@ -14,6 +15,17 @@ const Card = (props) => {
 
   return (
     <div className="">
+      <Link
+        className="btn btn-info"
+        to={{
+          pathname: `/car/${id}`,
+          state: {
+            car: props.data,
+          },
+        }}
+      >
+        View Details
+      </Link>
       <button onClick={toggleRentalNumber} className="btn btn-primary m-3">
         {showRentals ? "Hide" : "Show"} Rentals
       </button>

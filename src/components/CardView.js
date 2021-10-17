@@ -13,8 +13,8 @@ const CardView = (props) => {
   }
   return (
     <Carousel>
-      {props.cars.map((car) => (
-        <Card data={car} />
+      {props.cars.map((car, index) => (
+        <Card data={car} key={index} />
       ))}
     </Carousel>
   );

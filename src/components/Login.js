@@ -9,7 +9,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { setAuthenticated, authenticated } = useContext(AuthContext);
+  const { setAuthenticated, authenticated, setName } = useContext(AuthContext);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -37,10 +37,10 @@ const Login = (props) => {
         username: email,
         password: password,
       });
-      console.log(loginResult);
+      localStorage.setItem("token", loginResult.data.token);
       setError("");
       // redirect to landing page
-      console.log(setAuthenticated);
+      setName(email);
       setAuthenticated(true);
     } catch (e) {
       console.log(e.message);

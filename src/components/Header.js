@@ -4,9 +4,18 @@ import { Link } from "react-router-dom";
 import AuthContext from "../context/auth";
 
 const Header = () => {
-  const { authenticated, setAuthenticated } = useContext(AuthContext);
+  const { authenticated, setAuthenticated, setName, name } =
+    useContext(AuthContext);
 
-  const logout = () => setAuthenticated(false);
+  const logout = () => {
+    // a bit hack-ish but it works
+    const reply = window.confirm("are you sure you want to log out?");
+    if (reply) {
+      localStorage.removeItem("token");
+      setAuthenticated(false);
+      setName("");
+    }
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -76,13 +85,21 @@ const Header = () => {
         </ul>
         {/* Add the login button and logout */}
         {authenticated ? (
-          <button onClick={logout} className="btn btn-danger">
-            Logout
-          </button>
+          <>
+            <p className="m-2">{name}</p>
+            <button onClick={logout} className="btn btn-danger">
+              Logout
+            </button>
+          </>
         ) : (
-          <Link to="login" className="btn btn-primary">
-            Login
-          </Link>
+          <React.Fragment>
+            <Link to="login" className="btn btn-primary mx-2">
+              Login
+            </Link>
+            <Link to="signup" className="btn btn-secondary">
+              Signup
+            </Link>
+          </React.Fragment>
         )}
       </div>
     </nav>

@@ -1,4 +1,7 @@
-# Get your email from [this link](https://reqres.in/api/users?page=2)
+Get your email from [this link](https://reqres.in/api/users?page=2) due to the fake api that i'm using you have to use on of their emails
+michael.lawson@reqres.in
+
+Also because of the api I can't really show any error on the sign up page because they only check for empty fields and if your email exists in their database
 
 # Getting Started with Create React App
 

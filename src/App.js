@@ -5,10 +5,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import AuthContext from "./context/auth";
+import CarDetails from "./components/CarDetails";
 
 function App() {
   const cars = [
     {
+      id: 0,
+      model: 2000,
+      price: 100,
       title: "Honda",
       description: "really cool",
       image:
@@ -16,6 +20,9 @@ function App() {
       rentalNumber: 100,
     },
     {
+      id: 1,
+      model: 2001,
+      price: 110,
       title: "Hyundai",
       description: "really cool",
       image:
@@ -23,6 +30,9 @@ function App() {
       rentalNumber: 108,
     },
     {
+      id: 2,
+      model: 2002,
+      price: 200,
       title: "Kia",
       description: "really cool",
       image:
@@ -30,6 +40,9 @@ function App() {
       rentalNumber: 200,
     },
     {
+      id: 3,
+      model: 2003,
+      price: 220,
       title: "Range Rover",
       description: "really cool",
       image:
@@ -37,12 +50,18 @@ function App() {
       rentalNumber: 100,
     },
     {
+      id: 4,
+      model: 2004,
+      price: 300,
       title: "Hummer",
       description: "really cool",
       image: "https://wallpapercave.com/wp/wc1754622.jpg",
       rentalNumber: 100,
     },
     {
+      id: 5,
+      model: 2005,
+      price: 330,
       title: "Mitsubishi",
       description: "really cool",
       image:
@@ -50,6 +69,9 @@ function App() {
       rentalNumber: 100,
     },
     {
+      id: 6,
+      model: 2006,
+      price: 400,
       title: "Mercedes",
       description: "really cool",
       image:
@@ -57,6 +79,9 @@ function App() {
       rentalNumber: 100,
     },
     {
+      id: 7,
+      model: 2007,
+      price: 440,
       title: "BMW",
       description: "really cool",
       image:
@@ -66,6 +91,7 @@ function App() {
   ];
 
   const [authenticated, setAuthenticated] = useState(false);
+  const [name, setName] = useState("");
 
   return (
     <div className="App text-center">
@@ -74,6 +100,8 @@ function App() {
           value={{
             setAuthenticated: setAuthenticated,
             authenticated: authenticated,
+            setName: setName,
+            name: name,
           }}
         >
           <Header />
@@ -87,6 +115,9 @@ function App() {
               </Route>
               <Route path="/signup">
                 <Signup />
+              </Route>
+              <Route path="/car/:id">
+                <CarDetails />
               </Route>
             </Switch>
           </div>
