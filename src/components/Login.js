@@ -39,92 +39,94 @@ const Login = props => {
   };
 
   return (
-    <div>
-      {authenticated ? <Redirect to="dashboard" /> : null}
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={async (values, { setSubmitting }) => {
-          setSubmitting(true);
-          await login(values.email, values.password);
-          setSubmitting(false);
-        }}
-        validate={values => {
-          const errors = {};
+    <div className="row justify-content-center">
+      <div className="col-12 col-md-6">
+        {authenticated ? <Redirect to="/" /> : null}
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          onSubmit={async (values, { setSubmitting }) => {
+            setSubmitting(true);
+            await login(values.email, values.password);
+            setSubmitting(false);
+          }}
+          validate={values => {
+            const errors = {};
 
-          if (!values.email) {
-            errors.email = "Please enter your email";
-          } else {
-            if (!validateEmail(values.email)) {
-              errors.email = "Please enter a valid email";
+            if (!values.email) {
+              errors.email = "Please enter your email";
+            } else {
+              if (!validateEmail(values.email)) {
+                errors.email = "Please enter a valid email";
+              }
             }
-          }
 
-          if (!values.password) {
-            errors.password = "Please enter your password";
-          }
+            if (!values.password) {
+              errors.password = "Please enter your password";
+            }
 
-          return errors;
-        }}>
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
-          <form action="" onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email address
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="email"
-                aria-describedby="emailHelp"
-                value={values.email}
-                onChange={handleChange}
-              />
-              <div className="my-2">
-                <p className="alert-danger">{errors.email}</p>
+            return errors;
+          }}>
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form action="" onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Email address
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  value={values.email}
+                  onChange={handleChange}
+                />
+                <div className="my-2">
+                  <p className="alert-danger">{errors.email}</p>
+                </div>
+                <div id="emailHelp" className="form-text">
+                  We'll never share your email with anyone else.
+                </div>
               </div>
-              <div id="emailHelp" className="form-text">
-                We'll never share your email with anyone else.
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  value={values.password}
+                  onChange={handleChange}
+                />
+                <div className="my-2">
+                  <p className="alert-danger">{errors.password}</p>
+                </div>
               </div>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                value={values.password}
-                onChange={handleChange}
-              />
-              <div className="my-2">
-                <p className="alert-danger">{errors.password}</p>
+              <div className="mb-3">
+                Don't have an account?
+                <Link to="signup"> Signup</Link>
               </div>
-            </div>
-            <div className="mb-3">
-              Don't have an account?
-              <Link to="signup"> Signup</Link>
-            </div>
-            <div className="mb-3">
-              <p className="alert-danger">{error}</p>
-            </div>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={isSubmitting}>
-              Submit
-            </button>
-          </form>
-        )}
-      </Formik>
+              <div className="mb-3">
+                <p className="alert-danger">{error}</p>
+              </div>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}>
+                Submit
+              </button>
+            </form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };

@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <div>
-      {authenticated ? <Redirect to="dashboard" /> : null}
+      {authenticated ? <Redirect to="/" /> : null}
       <Formik
         initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
         onSubmit={async ({ name, email, password }, { setSubmitting }) => {

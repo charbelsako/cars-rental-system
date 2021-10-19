@@ -4,16 +4,26 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Redirect } from "react-router";
 import AuthContext from "../context/auth";
+import CarsContext from "../context/cars";
 
-const CardView = (props) => {
+const CardView = () => {
   const { authenticated } = useContext(AuthContext);
+  const { cars } = useContext(CarsContext);
 
   if (!authenticated) {
     return <Redirect to="login" />;
   }
+
+  const carsElements = cars.filter(
+    car => car.visible
+    // return <Card data={car} key={index} />;
+  );
+
+  console.log(carsElements);
+
   return (
     <Carousel>
-      {props.cars.map((car, index) => (
+      {carsElements.map((car, index) => (
         <Card data={car} key={index} />
       ))}
     </Carousel>
