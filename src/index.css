@@ -1,7 +1,6 @@
 @font-face {
   font-family: "firstTimeWriting";
-  src: local("firstTimeWriting"),
-    url("./assets/first-time.ttf") format("truetype");
+  src: local("firstTimeWriting"), url("./assets/first-time.ttf") format("truetype");
 }
 
 body {
@@ -12,10 +11,13 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .control-arrow {
   background: black !important;
+}
+
+.w-50 {
+  width: 50vw;
 }

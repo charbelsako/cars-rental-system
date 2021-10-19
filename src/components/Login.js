@@ -5,7 +5,7 @@ import AuthContext from "../context/auth";
 import { validateEmail } from "./utils";
 import { Formik } from "formik";
 
-const Login = (props) => {
+const Login = props => {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,12 +13,6 @@ const Login = (props) => {
   const { setAuthenticated, authenticated, setName } = useContext(AuthContext);
 
   const login = async (email, password) => {
-    if (!validateEmail(email)) {
-      // can be done through formik
-      setError("Please enter a valid email");
-      return false;
-    }
-
     if (email === "" || password === "") {
       setError("Please fill email and password");
       return false;
@@ -54,23 +48,31 @@ const Login = (props) => {
           await login(values.email, values.password);
           setSubmitting(false);
         }}
-      >
+        validate={values => {
+          const errors = {};
+
+          if (!values.email) {
+            errors.email = "Please enter your email";
+          } else {
+            if (!validateEmail(values.email)) {
+              errors.email = "Please enter a valid email";
+            }
+          }
+
+          if (!values.password) {
+            errors.password = "Please enter your password";
+          }
+
+          return errors;
+        }}>
         {({
           values,
-
           errors,
-
           touched,
-
           handleChange,
-
           handleBlur,
-
           handleSubmit,
-
           isSubmitting,
-
-          /* and other goodies */
         }) => (
           <form action="" onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -85,6 +87,9 @@ const Login = (props) => {
                 value={values.email}
                 onChange={handleChange}
               />
+              <div className="my-2">
+                <p className="alert-danger">{errors.email}</p>
+              </div>
               <div id="emailHelp" className="form-text">
                 We'll never share your email with anyone else.
               </div>
@@ -100,6 +105,9 @@ const Login = (props) => {
                 value={values.password}
                 onChange={handleChange}
               />
+              <div className="my-2">
+                <p className="alert-danger">{errors.password}</p>
+              </div>
             </div>
             <div className="mb-3">
               Don't have an account?
@@ -111,8 +119,7 @@ const Login = (props) => {
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={isSubmitting}
-            >
+              disabled={isSubmitting}>
               Submit
             </button>
           </form>

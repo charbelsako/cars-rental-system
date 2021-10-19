@@ -3,6 +3,8 @@ michael.lawson@reqres.in
 
 Also because of the api I can't really show any error on the sign up page because they only check for empty fields and if your email exists in their database
 
+Sometimes the api doesn't succeed
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
