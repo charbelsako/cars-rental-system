@@ -21,3 +21,10 @@ code {
 .w-50 {
   width: 50vw;
 }
+
+.loading {
+  height: 7px;
+  width: 100px;
+  background: purple;
+  position: relative;
+}
