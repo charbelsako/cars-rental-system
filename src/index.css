@@ -1,6 +1,7 @@
 @font-face {
   font-family: "firstTimeWriting";
-  src: local("firstTimeWriting"), url("./assets/first-time.ttf") format("truetype");
+  src: local("firstTimeWriting"),
+    url("./assets/28\ Days\ Later.ttf") format("truetype");
 }
 
 body {

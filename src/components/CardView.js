@@ -3,7 +3,7 @@ import Card from "./Card";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import CarsContext from "../context/cars";
-import { animated, useSpring, config } from "react-spring";
+import Loading from "./Loading";
 
 const CardView = () => {
   const { cars, setCars, loading, setLoading } = useContext(CarsContext);
@@ -99,36 +99,14 @@ const CardView = () => {
       },
     ]);
     setLoading(false);
-  }, 10000);
+  }, 2000);
 
   useEffect(() => () => clearTimeout(timeout), [timeout]);
 
   const carsElements = cars.filter(car => car.visible);
 
-  const { x } = useSpring({
-    loop: true,
-    from: { x: 0 },
-    x: 100,
-    config: config.molasses,
-  });
-
   if (loading) {
-    return (
-      <div className="row justify-content-center">
-        <div className="col-12 col-md-6">
-          <animated.div
-            style={{
-              left: x
-                .to({
-                  range: [0, 25, 50, 75, 100],
-                  output: [0, 50, 80, 50, 0],
-                })
-                .to(x => `${x}%`),
-            }}
-            className="loading"></animated.div>
-        </div>
-      </div>
-    );
+    return <Loading />;
   } else {
     return (
       <Carousel>
