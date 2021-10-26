@@ -1,40 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import CarsContext from "../context/cars";
 
 const Filter = () => {
   const { setCars, cars, brands } = useContext(CarsContext);
 
+  const [carsSearch, setCarsSearch] = useState([...cars]);
+
   const filterCars = ({ target: { value } }) => {
-    for (let i = 0; i < cars.length; i++) {
-      if (value !== cars[i].title && value !== "") {
-        console.log("do not show");
-        cars[i].visible = false;
-      } else {
-        cars[i].visible = true;
-      }
-    }
-    setCars([...cars]);
+    setCars([...cars.filter(value => value.title === value)]);
+    console.log(cars);
   };
 
   const searchCars = searchText => {
-    for (let i = 0; i < cars.length; i++) {
-      if (searchText !== cars[i].title && searchText !== "") {
-        cars[i].visible = false;
-      } else {
-        cars[i].visible = true;
-      }
-    }
-    const visibleCars = cars.filter(car => car.visible);
-    if (visibleCars.length === 0) {
-      const allCars = cars.map(car => {
-        car.visible = true;
-        return car;
-      });
-      setCars([...allCars]);
-      return 0;
-    }
-
-    setCars([...cars]);
+    setCars([...cars.filter(value => value.title === value)]);
+    console.log(cars);
   };
 
   // render a filter dropdown or something of the like
