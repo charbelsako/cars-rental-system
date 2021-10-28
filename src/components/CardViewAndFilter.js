@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Filter from "./Filter";
 import CardView from "./CardView";
 import CarsContext from "../context/cars";
 import { getUniqueBrands } from "./utils";
@@ -7,6 +6,7 @@ import { getUniqueBrands } from "./utils";
 const CardViewAndFilter = () => {
   const [loading, setLoading] = useState(true);
   const [cars, setCars] = useState([]);
+  const [carsSearch, setCarsSearch] = useState([]);
 
   return (
     <CarsContext.Provider
@@ -16,8 +16,10 @@ const CardViewAndFilter = () => {
         brands: getUniqueBrands(cars),
         loading: loading,
         setLoading: setLoading,
-      }}>
-      <Filter />
+        carsSearch: carsSearch,
+        setCarsSearch: setCarsSearch,
+      }}
+    >
       <CardView />
     </CarsContext.Provider>
   );

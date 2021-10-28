@@ -1,19 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import CarsContext from "../context/cars";
 
 const Filter = () => {
-  const { setCars, cars, brands } = useContext(CarsContext);
-
-  const [carsSearch, setCarsSearch] = useState([...cars]);
+  const { cars, brands, setCarsSearch } = useContext(CarsContext);
 
   const filterCars = ({ target: { value } }) => {
-    setCars([...cars.filter(value => value.title === value)]);
-    console.log(cars);
+    if (value === "") {
+      setCarsSearch([...cars]);
+    } else {
+      setCarsSearch([...cars.filter((car) => car.title === value)]);
+    }
   };
 
-  const searchCars = searchText => {
-    setCars([...cars.filter(value => value.title === value)]);
-    console.log(cars);
+  const searchCars = (searchText) => {
+    console.log(searchText);
+    if (searchText === "") {
+      setCarsSearch([...cars]);
+    } else {
+      setCarsSearch([...cars.filter((value) => value.title === searchText)]);
+    }
   };
 
   // render a filter dropdown or something of the like
@@ -22,12 +27,13 @@ const Filter = () => {
       <div className="col-12 col-md-6 m-1">
         <select onChange={filterCars} className="w-100">
           <option value="">All</option>
-          {brands.map(brand => (
+          {brands.map((brand) => (
             <option
               type="checkbox"
               className="d-inline brands"
               id="brands"
-              value={brand}>
+              value={brand}
+            >
               {brand}
             </option>
           ))}
@@ -40,7 +46,7 @@ const Filter = () => {
           name="search"
           id="search"
           placeholder="Search for your perfect car"
-          onChange={e => searchCars(e.target.value)}
+          onChange={(e) => searchCars(e.target.value)}
         />
       </div>
     </div>
